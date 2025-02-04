@@ -15,17 +15,18 @@ import {
 } from "primereact/treetable";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import ModalAddNewNode from "./ModalAddNewNode";
-import {
-  BodyTemplateProps,
-  NodeTypes,
-  nodeTypesFr,
-  SelectAllValue,
-  SelectionKeys,
-} from "../../../../types/custom-tree";
+// import {
+  // BodyTemplateProps,
+  // NodeTypes,
+  // nodeTypesFr,
+  // SelectAllValue,
+  // SelectionKeys,
+// } from "@/types/custom-tree";
+
 import { showToast } from "@/app/utils/toast";
 import { dynamicErrorAxios } from "@/app/modules/utils/global";
 import axiosInstance from "@/app/utils/axios";
-import { IdName } from "@/app/types/global";
+import { IdName } from "@/app/types/global.d";
 import { NewTreePost } from "./PostWithStreaming";
 import { KeyString } from "@/app/modules/utils/types.d";
 import { replaceElementInRecursiveArray } from "@/app/utils/objectManip";
@@ -35,6 +36,12 @@ import {
   MultiStateCheckboxChangeEvent,
 } from "primereact/multistatecheckbox";
 import { areAllNodesFullySelected, selectAllNodes } from "./objectUtils";
+import { 
+  NodeTypes, 
+   BodyTemplateProps,
+  nodeTypesFr,
+  SelectAllValue,
+  SelectionKeys, } from "@/app/types/custom-tree";
 
 type CustomTreeComponentProps = TreeTableProps & {
   onAdd?: (news: NewTreePost[]) => void;

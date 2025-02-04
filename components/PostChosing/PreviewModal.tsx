@@ -1,8 +1,6 @@
-import Prettify from "@/app/components/common/misc/Prettify";
+
 import { IdName } from "@/app/types/global";
-import axiosInstance, { baseURL } from "@/app/utils/axios";
-import { Column } from "primereact/column";
-import { DataTable } from "primereact/datatable";
+import { baseURL } from "@/app/utils/axios";
 import { Dialog, DialogProps } from "primereact/dialog";
 import {
   Fragment,

@@ -1,6 +1,6 @@
 import { Dialog, DialogProps } from "primereact/dialog";
 import { TreeNodeWithData } from "./CustomTreeComponent";
-import { NodeTypes, nodeTypesFr } from "../../../../types/custom-tree";
+import { NodeTypes, nodeTypesFr } from "@/app/types/custom-tree";
 import { Button } from "primereact/button";
 import {
   AutoComplete,
@@ -11,7 +11,6 @@ import { Fragment, useState } from "react";
 import axiosInstance from "@/app/utils/axios";
 import { TPaginatedData } from "@/app/modules/datatable/types.d";
 import { strongStringCompare } from "@/app/utils/stringManip";
-import Prettify from "@/app/components/common/misc/Prettify";
 import { isArray } from "@/app/utils/objectManip";
 import ErrorMessage from "@/app/modules/dynamicForm/components/cells/ErrorMessage";
 import { hasType } from "@/app/modules/utils/global";

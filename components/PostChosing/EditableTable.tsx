@@ -1,8 +1,6 @@
-import { CSSProperties, Fragment, useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { OutputMeasure } from "./PreviewModal";
-import { TreeNode } from "primereact/treenode";
-import Prettify from "@/app/components/common/misc/Prettify";
-import { formatDateTime } from "@/app/utils/stringManip";
+
 import { TreeNodeWithData } from "./CustomTreeComponent";
 
 type EditableTableProps = { data: OutputMeasure[]; company: CompanyGet };

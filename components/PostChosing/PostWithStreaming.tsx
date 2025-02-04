@@ -8,7 +8,7 @@ import { handleTreatStream, parsePerStream } from "@/app/utils/stream";
 import { Button } from "primereact/button";
 import { TreeNode } from "primereact/treenode";
 import { useEffect, useMemo, useState } from "react";
-import { nodeTypes } from "../../../../types/custom-tree";
+import { nodeTypes } from "@/app/types/custom-tree";
 import CustomTreeComponent from "./CustomTreeComponent";
 import {
   TreeTableSelectionEvent,
@@ -19,9 +19,7 @@ import { deepEqual } from "@/app/utils/objectManip";
 import { showErrorToast, showToast } from "@/app/utils/toast";
 import { dynamicErrorAxios } from "@/app/modules/utils/global";
 import { Message } from "primereact/message";
-import { fillEmptyValue, getAllKeys, groupByKeys, removeParents } from "./objectUtils";
-import { RawDisplayer } from "./testingUtils";
-import Prettify from "@/app/components/common/misc/Prettify";
+import { fillEmptyValue, groupByKeys, removeParents } from "./objectUtils";
 
 export type NewTreePost = IdName & {
   workName?: string;

@@ -1,0 +1,193 @@
+const _api = {
+  fakeProducts: "https://dummyjson.com/products",
+  auth: {
+    signUp: "/api/auth/signup",
+    signIn: "/api/auth/signin",
+  },
+  users: {
+    get: "/api/users/",
+    put: (id: string) => `/api/users/${id}`,
+    getReduced: `/api/users/all/reduced`,
+  },
+  workSectors: {
+    get: "/api/sector",
+    getOne: (id: string) => `/api/sector/one/${id}`,
+    post: "/api/sector",
+    put: (id: string) => `/api/sector/${id}`,
+    delete: (id: string) => `/api/sector/${id}`,
+    getReduced: `/api/sector/all/reduced`,
+  },
+  workDomains: {
+    get: "/api/domain",
+    post: "/api/domain",
+    put: (id: string) => `/api/domain/${id}`,
+    delete: (id: string) => `/api/domain/${id}`,
+    getReduced: `/api/domain/all/reduced`,
+    changePosts: (id: string) => `/api/domain/change-suggested-posts/${id}`,
+    getOne: (id: string) => `/api/domain/${id}`,
+  },
+  subDomains: {
+    get: "/api/sub-domain",
+    post: "/api/sub-domain",
+    put: (id: string) => `/api/sub-domain/${id}`,
+    delete: (id: string) => `/api/sub-domain/${id}`,
+    getReduced: `/api/sub-domain/all/reduced`,
+    changePosts: (id: string) => `/api/sub-domain/change-suggested-posts/${id}`,
+    getOne: (id: string) => `/api/sub-domain/${id}`,
+  },
+
+  posts: {
+    get: "api/post",
+    getOne: (id: string) => `api/post/${id}`,
+    post: "api/post",
+    put: (id: string) => `/api/post/${id}`,
+    delete: (id: string) => `/api/post/${id}`,
+    getReduced: `/api/post/all/reduced`,
+    postMany: "api/post/many/",
+  },
+  works: {
+    get: "api/work",
+    post: "api/work",
+    getOne: (id: string) => `/api/work/${id}`,
+    put: (id: string) => `/api/work/${id}`,
+    delete: (id: string) => `/api/work/${id}`,
+    getReduced: `/api/work/all/reduced`,
+    deleteMany: `/api/work/delete/many`,
+    putWorkRisk: (id: string) => `/api/work/risk/${id}`,
+    getPercentage: (postId: string) => `/api/work-percent/${postId}`,
+    putPercentage: (postId: string) => `/api/work-percent/${postId}`,
+  },
+  riskCategories: {
+    get: "api/risk-category",
+    post: "api/risk-category",
+    put: (id: string) => `/api/risk-category/${id}`,
+    delete: (id: string) => `/api/risk-category/${id}`,
+    getReduced: `/api/risk-category/all/reduced`,
+  },
+  risks: {
+    get: "api/risk",
+    getOne: (id: string) => `/api/risk/${id}`,
+    post: "api/risk",
+    put: (id: string) => `/api/risk/${id}`,
+    delete: (id: string) => `/api/risk/${id}`,
+    getReduced: `/api/risk/all/reduced`,
+  },
+  measures: {
+    get: "api/measure",
+    getOne: (id: string) => `/api/measure/${id}`,
+    getWithRiskId: (id: string) => `/api/measure/same-risk-id/${id}`,
+    post: "api/measure",
+    put: (id: string) => `/api/measure/${id}`,
+    delete: (id: string) => `/api/measure/${id}`,
+    getReduced: `/api/measure/all/reduced`,
+  },
+  keywords: {
+    get: "api/keywords",
+    post: "api/keywords",
+    postMany: "api/keywords/many/",
+    put: (id: string) => `/api/keywords/${id}`,
+    delete: (id: string) => `/api/keywords/${id}`,
+    getReduced: `/api/keywords/all/reduced`,
+  },
+  equivalents: {
+    get: "api/equivalents",
+    post: "api/equivalents",
+    postMany: "api/equivalents/many/",
+    put: (id: string) => `/api/equivalents/${id}`,
+    delete: (id: string) => `/api/equivalents/${id}`,
+    getReduced: `/api/equivalents/all/reduced`,
+  },
+  options: {
+    datatable: {
+      get: "/api/options/datatable",
+      post: (key: string) => `/api/options/datatable/${key}`,
+    },
+  },
+  errors: {
+    back: { get: "/api/errors/back" },
+    front: { get: "/api/errors/front" },
+  },
+  companies: {
+    get: "/api/companies",
+    getOne: (id: string) => `/api/companies/${id}`,
+    post: "/api/companies",
+    put: (id: string) => `/api/companies/${id}`,
+    delete: (id: string) => `/api/companies/${id}`,
+    getReduced: `/api/companies/all/reduced`,
+    getFrom: {
+      siren: (sirenId: string) => `/api/companies/siren/${sirenId}`,
+      siret: (siretId: string) => `/api/companies/siret/${siretId}`,
+    },
+    postFromClient: "/api/companies/client",
+    getOneFormClient: "/api/companies/client/own",
+    works: (companyId: string) => `/api/companies/works/${companyId}`,
+  },
+  backup: {
+    export: (collectionName: string) => `/api/backup/export/${collectionName}`,
+    collectionList: "/api/backup/collections-list",
+  },
+  environments: {
+    get: "api/environments",
+    post: "api/environments",
+    postMany: "api/environments/many/",
+    put: (id: string) => `/api/environments/${id}`,
+    delete: (id: string) => `/api/environments/${id}`,
+    getReduced: `/api/environments/all/reduced`,
+  },
+  environmentCategories: {
+    get: "api/environment-categories",
+    post: "api/environment-categories",
+    postMany: "api/environment-categories/many/",
+    put: (id: string) => `/api/environment-categories/${id}`,
+    delete: (id: string) => `/api/environment-categories/${id}`,
+    getReduced: `/api/environment-categories/all/reduced`,
+  },
+  fileUpload: {
+    supers: {
+      post: "/api/file-upload",
+      delete: (deleteHash: string) => `/api/file-upload/${deleteHash}`,
+    },
+  },
+  mediaList: {
+    get: "/api/media-list",
+    delete: (deleteHash: string) => `/api/media-list/${deleteHash}`,
+  },
+
+  treePosts: {
+    get: "api/companies/admin/tree-posts",
+    getOne: (id: string) => `api/companies/admin/tree-posts/${id}`,
+    delete: (id: string) => `api/companies/admin/tree-posts/${id}`,
+  },
+  pricing: {
+    get: "/api/pricing",
+  },
+};
+
+const _clientApi = {
+  step1: "/api/client/register",
+  step2: "/api/client/login",
+  step3: "/api/companies/client",
+  step4: "/api/client/new-payment-intent",
+  step5: (stripeIntentId: string) =>
+    `/api/client/enable-user/${stripeIntentId}`,
+  step6: (siren: string) => `/api/companies/siren/${siren}`,
+  step7: (siret: string) => `/api/companies/siret/${siret}`,
+  step8: "/api/companies/client",
+  step9: "/api/sector?limit=100",
+  step10: (sectorId: string) => `/api/domain/from-sector/${sectorId}`,
+  step11: (domainId: string) => `/api/sub-domain/from-domain/${domainId}`,
+  step12: "/api/companies/client",
+  step13: "/api/companies/client/domain",
+  step14: "/api/post",
+  step15: "/api/companies/client/posts",
+  step16: "/api/companies/client/works",
+  step17: "/api/companies/client/works/own",
+  step18: "/api/companies/client/works",
+  step19: "/api/companies/client/risks",
+  step20: "/api/companies/client/risks/own",
+  step21: "/api/companies/client/measures",
+};
+
+export { _clientApi };
+
+export default _api;
