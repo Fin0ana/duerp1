@@ -122,3 +122,76 @@ function PreviewModal({ company, ...props }: PreviewModalProps) {
 
 export default PreviewModal;
 
+
+// 'use client'
+// import { Dialog, DialogProps } from "primereact/dialog";
+// import { useEffect, useState } from "react";
+// import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+// import { Button } from "primereact/button";
+// import { Skeleton } from "primereact/skeleton";
+// import PdfDoc from "./PdfDoc";
+// import { _EditableTable } from "./EditableTable";
+
+// // Types
+// type PreviewModalProps = { company: CompanyGet } & DialogProps;
+// type TMeasure = IdName;
+// type TRisk = IdName & {
+//   rowSpan?: number;
+//   measure?: TMeasure[];
+//   likelihood?: Level;
+//   severity?: Level;
+// };
+// type TWork = IdName & { rowSpan: number; risk?: TRisk[] };
+// export type OutputMeasure = IdName & { work?: TWork[] };
+
+// function PreviewModal({ company, ...props }: PreviewModalProps) {
+//   const [data, setData] = useState<OutputMeasure[]>([]);
+//   const [perMeasure, setPerMeasure] = useState<OutputMeasure[]>([]);
+//   const [loading, setLoading] = useState(false);
+
+//   const getStreamedPdfData = async () => {
+//     try {
+//       setLoading(true);
+//       // Suppression de l'appel API contenant currentUser
+//       setLoading(false);
+//     } catch (error) {
+//       setLoading(false);
+//       throw error;
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (!props.visible) return;
+//     getStreamedPdfData();
+//   }, [props.visible]);
+
+//   return (
+//     <Dialog
+//       header="Aperçu du DUERP"
+//       style={{ minWidth: "100vw", minHeight: "100vh" }}
+//       blockScroll
+//       maximized
+//       draggable={false}
+//       {...props}
+//     >
+//       <div className="flex justify-end my-2">
+//         <PDFDownloadLink
+//           document={<PdfDoc data={[]} company={company} />}
+//           fileName="DUERP.pdf"
+//         >
+//         </PDFDownloadLink>
+//       </div>
+//       {loading ? (
+//         <Skeleton width="100%" height="50rem"></Skeleton>
+//       ) : perMeasure.length > 200 ? (
+//         <_EditableTable data={[]} company={company} />
+//       ) : (
+//         <PDFViewer width={"100%"} height={"100%"}>
+//           <PdfDoc data={[]} company={company} />
+//         </PDFViewer>
+//       )}
+//     </Dialog>
+//   );
+// }
+
+// export default PreviewModal;

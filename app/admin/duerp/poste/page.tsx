@@ -13,7 +13,7 @@ interface Domain {
   name: string;
 }
 
-async function page() {
+function page() {
   const [company, setCompany] = useState<Company | undefined>(undefined);
   const [domain, setDomain] = useState<Domain | undefined>(undefined);
   

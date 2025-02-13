@@ -53,3 +53,33 @@ axiosInstance.interceptors.response.use(
 
 export { baseURL };
 export default axiosInstance;
+
+
+
+
+// import axios from "axios";
+// const baseURL: string = process.env.NEXT_PUBLIC_API_URL as string || "https://back-duerp.vercel.app";
+
+// const axiosInstance = axios.create({
+//   baseURL,
+//   headers: {
+//     Accept: "application/json",
+//     "Content-type": "application/json",
+//   },
+// });
+
+// axiosInstance.interceptors.response.use(
+//   function (response) {
+//     return response;
+//   },
+//   function (error) {
+//     const isUnauthorized = error.response && error.response.status === 403;
+//     if (isUnauthorized) {
+//       window.location.href = `/403?message=${error.response.data.message}`;
+//     }
+//     return Promise.reject(error);
+//   }
+// );
+
+// export { baseURL };
+// export default axiosInstance;
