@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import axiosInstance from '@/payment/utils/axios'; // Assurez-vous que cette importation est correcte
+import axiosInstance from '@/app/admin/payment/utils/axios'; // Assurez-vous que cette importation est correcte
 //import AdminLayout from '@/components/AdminLayout';
 import AdminLayout from '@/components/AdminLayout';
 

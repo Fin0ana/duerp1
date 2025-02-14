@@ -1,8 +1,7 @@
 "use client";
 
-import useAuthStore from "@/app/store/auth/authStore";
 import { IdName } from "@/app/types/global";
-import axiosInstance, { baseURL } from "@/app/utils/axios";
+import axiosInstance, { baseURL } from "@/app/admin/payment/utils/axios";
 
 import { handleTreatStream, parsePerStream } from "@/app/utils/stream";
 import { Button } from "primereact/button";
@@ -38,12 +37,9 @@ type CheckedFormServer = {
 };
 type PostWithStreamingProps = { company: CompanyGet };
 function PostWithStreaming({ company }: PostWithStreamingProps) {
-  const { currentUser } = useAuthStore();
-
   /// Get
   const [perMeasure, setPerMeasure] = useState<NewTreePost[]>([]);
   const [hasError, setHasError] = useState<boolean>(false);
-
 
   useEffect(() => {
     getWithNoError();
@@ -87,7 +83,10 @@ function PostWithStreaming({ company }: PostWithStreamingProps) {
   }, [perMeasure]);
 
   const getWithNoError = async () => {
+    const currentUser = { accessToken: localStorage.getItem("authToken") };
     try {
+      console.log("currentUser", currentUser);
+
       setLoadingGet(true);
       const [postStream, checked] = await Promise.all([
         handleTreatStream(`${baseURL}/api/companies/tree-posts-streamed`, {
@@ -124,7 +123,6 @@ function PostWithStreaming({ company }: PostWithStreamingProps) {
         : { checked: typeof e.value === "string" ? {} : e.value, _id: "" }
     );
   };
-
 
   /// Add
   const handleAddNew = (news: NewTreePost[]) => {
@@ -245,8 +243,6 @@ function PostWithStreaming({ company }: PostWithStreamingProps) {
 
 export default PostWithStreaming;
 
-
-
 // "use client";
 
 // import { IdName } from "@/app/types/global";
@@ -288,7 +284,7 @@ export default PostWithStreaming;
 //   const response = await fetch(url);
 //   if (!response.ok) throw new Error("Network response was not ok");
 //   return response.json();
-//   //currentuser 
+//   //currentuser
 // }
 // function PostWithStreaming({ company }: PostWithStreamingProps) {
 //   const [perMeasure, setPerMeasure] = useState<NewTreePost[]>([]);

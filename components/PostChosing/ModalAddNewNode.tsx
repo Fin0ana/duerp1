@@ -8,7 +8,7 @@ import {
   AutoCompleteCompleteEvent,
 } from "primereact/autocomplete";
 import { Fragment, useState } from "react";
-import axiosInstance from "@/app/utils/axios";
+import axiosInstance from "@/app/admin/payment/utils/axios";
 import { TPaginatedData } from "@/app/modules/datatable/types.d";
 import { strongStringCompare } from "@/app/utils/stringManip";
 import { isArray } from "@/app/utils/objectManip";

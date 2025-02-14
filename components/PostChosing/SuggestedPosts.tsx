@@ -4,7 +4,7 @@ import DynamicForm from "@/app/modules/dynamicForm/components/DynamicForm";
 import { FormResult, TDynamicForm } from "@/app/modules/dynamicForm/types.d";
 import { useMemo, useState } from "react";
 import OtherPostsTemplate from "./OtherPostsTemplate";
-import axiosInstance from "@/app/utils/axios";
+import axiosInstance from "@/app/admin/payment/utils/axios";
 import { _clientApi } from "@/app/_endpoints";
 import { dynamicError } from "@/app/modules/utils/global";
 import { useRouter } from "next/navigation";
@@ -46,9 +46,7 @@ function SuggestedPosts({ domain, company }: SuggestedPostsProps) {
   const handleSubmit = async (result: FormResult) => {
     try {
       setLoad(true);
-      const postIds = Array.from(
-        new Set([...result["suggested-posts"]])
-      );
+      const postIds = Array.from(new Set([...result["suggested-posts"]]));
       const response = await axiosInstance.put(_clientApi.step15, {
         posts: postIds,
       });
@@ -109,4 +107,3 @@ function SuggestedPosts({ domain, company }: SuggestedPostsProps) {
 }
 
 export default SuggestedPosts;
-

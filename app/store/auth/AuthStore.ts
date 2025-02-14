@@ -1,6 +1,6 @@
 // store/auth/authStore.ts
 
-import create from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { DEFAULT_CURRENT_USER } from "../../constants/auth";
 import setCurrentUserOnServer from "../../actions/setCurrentUser";
@@ -35,7 +35,7 @@ const useAuthStore = create<AuthStore>()(
       // Action pour réinitialiser l'utilisateur courant
       resetCurrentUser: () => {
         set({ currentUser: DEFAULT_CURRENT_USER });
-        setCurrentUserOnServer(DEFAULT_CURRENT_USER);
+        setCurrentUserOnServer(DEFAULT_CURRENT_USER.accessToken);
       },
     }),
     {
