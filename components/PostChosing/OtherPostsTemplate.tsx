@@ -1,7 +1,7 @@
 import { _clientApi } from "@/app/_endpoints";
 import DynamicFormCore from "@/app/modules/dynamicForm/components/bases/DynamicFormCore";
 import { TDynamicForm } from "@/app/modules/dynamicForm/types.d";
-import axiosInstance from "@/app/utils/axios";
+import axiosInstance from "@/app/admin/payment/utils/axios";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { ChangeEvent, FormEvent, MouseEvent, useMemo, useState } from "react";

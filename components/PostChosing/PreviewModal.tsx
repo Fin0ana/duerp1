@@ -1,6 +1,6 @@
 
 import { IdName } from "@/app/types/global";
-import { baseURL } from "@/app/utils/axios";
+import { baseURL } from "@/app/admin/payment/utils/axios";
 import { Dialog, DialogProps } from "primereact/dialog";
 import {
   Fragment,
@@ -16,7 +16,7 @@ import { formatDateTime } from "@/app/utils/stringManip";
 import PdfDoc from "./PdfDoc";
 import { _EditableTable } from "./EditableTable";
 import { handleTreatStream } from "@/app/utils/stream";
-import useAuthStore from "@/app/store/auth/authStore";
+import useAuthStore from "@/app/store/auth/AuthStore";
 import { NewTreePost } from "./PostWithStreaming";
 import { TreeNode } from "primereact/treenode";
 import { fillEmptyValue, groupByKeys } from "./objectUtils";

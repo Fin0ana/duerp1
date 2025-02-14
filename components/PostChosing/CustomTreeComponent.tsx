@@ -25,7 +25,7 @@ import ModalAddNewNode from "./ModalAddNewNode";
 
 import { showToast } from "@/app/utils/toast";
 import { dynamicErrorAxios } from "@/app/modules/utils/global";
-import axiosInstance from "@/app/utils/axios";
+import axiosInstance from "@/app/admin/payment/utils/axios";
 import { IdName } from "@/app/types/global.d";
 import { NewTreePost } from "./PostWithStreaming";
 import { KeyString } from "@/app/modules/utils/types.d";
@@ -346,8 +346,8 @@ function CustomTreeComponent({ onAdd, ...props }: CustomTreeComponentProps) {
         <Column
           body={BodyTemplate}
           header={HeaderTemplate}
+          expander={true}
           pt={{ rowToggler }}
-          expander
         ></Column>
       </TreeTable>
       <ModalAddNewNode
