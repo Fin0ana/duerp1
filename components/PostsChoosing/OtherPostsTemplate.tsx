@@ -1,6 +1,6 @@
 import { _clientApi } from "@/app/_endpoints";
 import DynamicFormCore from "@/app/modules/dynamicForm/components/bases/DynamicFormCore";
-import { TDynamicForm } from "@/app/modules/dynamicForm/types.d";
+import { TDynamicForm } from "@/app/modules/dynamicForm/types";
 import axiosInstance from "@/app/admin/payment/utils/axios";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
@@ -71,6 +71,3 @@ function OtherPostsTemplate({ item, setItem }: OtherPostsTemplateProps) {
 }
 
 export default OtherPostsTemplate;
-
-
-

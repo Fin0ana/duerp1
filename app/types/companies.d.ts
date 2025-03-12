@@ -12,6 +12,7 @@ type CompanyGet = {
   userIds: string[];
   createdAt: string;
   updatedAt: string;
+  expiresAt?: string;
   siren?: string;
   siret?: string;
   category: string;
@@ -31,6 +32,7 @@ type MidCompanyPost = {
   userIds: string[];
   category: string;
   classement?: string;
+  expiresAt?: Date;
   siren?: string;
   siret?: string;
 };
@@ -47,6 +49,7 @@ type CompanyPost = {
   diffUser: any;
   category: string;
   classement?: string;
+  expiresAt?: Date;
   siren?: string;
   siret?: string;
 };
@@ -58,6 +61,8 @@ type ClientCompanyPost = {
   siren: string;
   siret?: string;
   classement?: string;
+  address?: string
+  phone?: string
 };
 
 type CompanySiretResponse = {

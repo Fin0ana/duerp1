@@ -1,6 +1,5 @@
 import { Fragment, useMemo } from "react";
 import { OutputMeasure } from "./PreviewModal";
-
 import { TreeNodeWithData } from "./CustomTreeComponent";
 
 type EditableTableProps = { data: OutputMeasure[]; company: CompanyGet };
@@ -109,8 +108,8 @@ export const _EditableTable = ({ data, company }: _EditableTableProps) => {
                       </Fragment>
                     )}
                     <td>{m.data.name}</td>
-                    <td>{r.data.severity + r.data.likelihood}</td>
-                    <td>So sleepy</td>
+                    <td>{(r.data.severity ?? 0) + (r.data.likelihood ?? 0)}</td>
+                    <td>...</td>
                   </tr>
                 ))
               )
@@ -123,4 +122,3 @@ export const _EditableTable = ({ data, company }: _EditableTableProps) => {
 };
 
 export default EditableTable;
-

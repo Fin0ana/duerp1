@@ -203,13 +203,3 @@ export function getDepth(
     )
   );
 }
-
-export const toastRef = createRef<Toast>();
-
-export const showToast = (_options: ToastMessage) => {
-  const options: ToastMessage = { ..._options, life: _options.life || 10000 };
-  if (toastRef.current) {
-    toastRef.current.show(options);
-  }
-};
-

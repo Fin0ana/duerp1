@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/viva-light/theme.css";
+import GlobalToast from "@/components/shared/messages/GlobalToast";
+import { AuthProvider } from "./store/auth/AuthStore";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <AuthProvider>
+          <>
+            <GlobalToast />
+            {children}
+          </>
+        </AuthProvider>
       </body>
     </html>
   );

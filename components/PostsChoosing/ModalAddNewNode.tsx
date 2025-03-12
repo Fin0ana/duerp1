@@ -7,16 +7,15 @@ import {
   AutoCompleteChangeEvent,
   AutoCompleteCompleteEvent,
 } from "primereact/autocomplete";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import axiosInstance from "@/app/admin/payment/utils/axios";
-import { TPaginatedData } from "@/app/modules/datatable/types.d";
+import { TPaginatedData } from "@/app/modules/datatable/types";
 import { strongStringCompare } from "@/app/utils/stringManip";
 import { isArray } from "@/app/utils/objectManip";
 import ErrorMessage from "@/app/modules/dynamicForm/components/cells/ErrorMessage";
-import { hasType } from "@/app/modules/utils/global";
 
 type ModalAddNewNodeProps = DialogProps & {
-  currentNode?: TreeNodeWithData;
+  type?: NodeTypes;
   onAdd?: (news: Record<string, any>[], type: NodeTypes) => void;
 };
 type AutoCompleteResponse = {
@@ -33,12 +32,12 @@ type AutoCompleteValue = {
 type PossibleErrors = { errors: string[] } | null;
 
 function ModalAddNewNode({
-  currentNode,
+  type: _type,
   onAdd,
   ...props
 }: ModalAddNewNodeProps) {
-  if (!currentNode) return;
-  const type = nodeTypesFr[currentNode.data.type];
+  if (!_type) return;
+  const type = nodeTypesFr[_type];
   const a = type.sex === "F" ? "une nouvelle" : "un nouveau";
   const n = type.sex === "F" ? "Nouvelle" : "Nouveau";
   const name = type.name;
@@ -69,7 +68,7 @@ function ModalAddNewNode({
     const response = await axiosInstance.get<
       TPaginatedData<AutoCompleteResponse[]>
     >(`/api/companies/client/autocomplete`, {
-      params: { limit: 20, type: currentNode.data.type, search: e.query },
+      params: { limit: 20, type: _type, search: e.query },
     });
     const data = formatToGrouped(response.data.data || [], e.query);
     setSuggestions(data);
@@ -193,7 +192,7 @@ function ModalAddNewNode({
 
   // Submit
   async function handleConfirm() {
-    if (!currentNode) return;
+    if (!_type) return;
     const _errors = validate(newElementArray);
     setTouched(true);
     if (_errors) {
@@ -203,9 +202,13 @@ function ModalAddNewNode({
     setErrors(undefined);
     onAdd?.(
       newElementArray.map((e) => e.value),
-      currentNode.data.type
+      _type
     );
   }
+
+  useEffect(() => {
+    setNewElementArray([{ value: {} }]);
+  }, [props.visible]);
 
   return (
     <Dialog
@@ -264,5 +267,3 @@ function ModalAddNewNode({
 }
 
 export default ModalAddNewNode;
-
-

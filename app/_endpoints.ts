@@ -3,11 +3,17 @@ const _api = {
   auth: {
     signUp: "/api/auth/signup",
     signIn: "/api/auth/signin",
+    requestpasswordReset: "/api/auth/request-reset-password",
+    validateResetToken: "/api/auth/validate-reset-token",
+    resetPassword: "/api/auth/reset-password",
   },
   users: {
     get: "/api/users/",
     put: (id: string) => `/api/users/${id}`,
     getReduced: `/api/users/all/reduced`,
+    profile: "/api/users/profile",
+    companyProfile: "/api/users/company-profile",
+    updatePassword: "/api/users/update-tm",
   },
   workSectors: {
     get: "/api/sector",
@@ -161,6 +167,23 @@ const _api = {
   pricing: {
     get: "/api/pricing",
   },
+
+  duerpHistory: {
+    getCompanies: "/api/duerp-history/companies",
+    getDuerpPerComp: (companyId: string) =>
+      `/api/duerp-history/company/${companyId}`,
+    getDuerpVersion: (id: string) => `/api/duerp-history/${id}`,
+  },
+
+  invitation: {
+    get: "/api/invitations",
+    getFromToken: (token: string) => `/api/invitations/validate?token=${token}`,
+    create: "/api/invitations",
+  },
+  invoice: {
+    get: "/api/invoices",
+    getOne: (id: string) => `/api/invoices/${id}`,
+  },
 };
 
 const _clientApi = {
@@ -186,6 +209,9 @@ const _clientApi = {
   step19: "/api/companies/client/risks",
   step20: "/api/companies/client/risks/own",
   step21: "/api/companies/client/measures",
+  step22: "/api/companies/pricing/own",
+  step23: (intentId: string) => `/api/companies/re-enable/${intentId}`,
+  step24: `/api/client/renew-payment-intent`,
 };
 
 export { _clientApi };
