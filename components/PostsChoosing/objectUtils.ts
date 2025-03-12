@@ -445,6 +445,7 @@ export class ComputePercentageUtils {
     workPercent1: WorkPercentGet[],
     workPercent2: WorkPercentGet[]
   ): boolean {
+    if (!workPercent1 || !workPercent2) return workPercent1 === workPercent2;
     if (workPercent1.length === 0 && workPercent2.length === 0) return true;
 
     const _workPercent1 = workPercent1.map((wp) => ({

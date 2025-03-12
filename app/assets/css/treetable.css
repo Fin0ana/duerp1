@@ -1,0 +1,7 @@
+.p-treetable {
+  .p-treetable-tbody {
+    & > tr .p-checkbox-box {
+      color: white;
+    }
+  }
+}
