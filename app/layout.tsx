@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "@/app/assets/css/treetable.css";
+import "@/app/assets/css/surfaces.css";
+import "@/app/assets/css/forms.css";
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/viva-light/theme.css";
 import GlobalToast from "@/components/shared/messages/GlobalToast";

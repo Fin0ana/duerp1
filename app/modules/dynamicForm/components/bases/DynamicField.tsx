@@ -6,7 +6,7 @@ import DynamicFormLabel from "./DynamicFormLabel";
 import ErrorMessage from "../cells/ErrorMessage";
 import { EventHandler, useContext, useMemo } from "react";
 import { DynamicFormContext } from "../../context/DynamicFormContext";
-import IconButton from "@/app/components/common/icons/IconButton";
+import IconButton from "../editMode/IconButton";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { FIELDS_TYPES } from "../../composables/changeFieldType";
 import AdditionnalInfos from "../editMode/AdditionnalInfos";
@@ -24,7 +24,7 @@ function DynamicField({ item, id }: DynamicFieldProps) {
     setChosenId,
     setValue,
     value,
-    id: formId
+    id: formId,
   } = useContext(DynamicFormContext);
   const { errorsTouched } = useValidation();
 
@@ -98,7 +98,10 @@ function DynamicField({ item, id }: DynamicFieldProps) {
   ) : (
     <div className="relative flex flex-row items-center">
       {isQuestionMode && (
-        <IconButton className="mgc_dots_line cursor-grab"></IconButton>
+        <IconButton
+          icon="pi pi-ellipsis-v"
+          className="cursor-grab"
+        ></IconButton>
       )}
       <div className={`flex flex-col w-full ${isQuestionMode ? "p-2" : ""}`}>
         {isQuestionMode && isChosen && (
@@ -138,22 +141,16 @@ function DynamicField({ item, id }: DynamicFieldProps) {
       {isQuestionMode && (
         <div className="flex flex-row gap-1 px-2">
           <IconButton
-            size="2rem"
+            icon={!isChosen ? "pi pi-pencil" : "pi pi-check"}
             className={`text-lg ${
-              !isChosen
-                ? "mgc_pencil_fill text-blue-500"
-                : "mgc_check_fill text-green-500"
+              !isChosen ? "text-blue-500" : "text-green-500"
             }`}
             onClick={handleChangeMode}
           ></IconButton>
           <IconButton
-            size="2rem"
             onClick={handleCrux}
-            className={`text-lg ${
-              !isChosen
-                ? "mgc_delete_fill text-red-500"
-                : "mgc_close_fill text-red-500"
-            }`}
+            icon={!isChosen ? "pi pi-trash" : "pi pi-times"}
+            className={`text-lg ${!isChosen ? "text-red-500" : "text-red-500"}`}
           ></IconButton>
         </div>
       )}
@@ -162,6 +159,3 @@ function DynamicField({ item, id }: DynamicFieldProps) {
 }
 
 export default DynamicField;
-
-
-

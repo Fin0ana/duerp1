@@ -36,6 +36,8 @@ type RegisterParams = {
   email: string;
   password: string;
   inviteToken?: string;
+  address?: string;
+  phone?: string;
 };
 
 type InvitationGet = {
