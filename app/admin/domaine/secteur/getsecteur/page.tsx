@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import AdminLayout from '../../../../../components/AdminLayout';
-import axiosInstance from "../../payment/utils/axios";
+import axiosInstance from "@/app/admin/payment/utils/axios";
 
 interface Sector {
   _id: string;
