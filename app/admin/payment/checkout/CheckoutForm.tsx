@@ -67,7 +67,7 @@ export default function CheckoutForm() {
 
       if (!stripe || !elements) return;
 
-      const cardNumberElement = elements.getElement(CardNumberElement);
+      const cardNumberElement = elements.getElement(CardNumberElement)!;
       const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: cardNumberElement,
@@ -90,7 +90,7 @@ export default function CheckoutForm() {
       setProcessing(false);
       return paymentIntent;
     } catch (error) {
-      setError(error);
+      setError(error as StripeError);
       setProcessing(false);
       throw error;
     }

@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import AdminLayout from '../../../../components/AdminLayout';
 import axiosInstance from "../../payment/utils/axios";
 
-const Secteur: React.FC = () => {
+type SecteurProps = { secteurs: SecteurOption[]; selectedSecteur: string; onChangeSecteur: (secteur: string) => void; }
+const Secteur: React.FC<SecteurProps> = () => {
   const [sectors, setSectors] = useState<any[]>([]); // Liste des secteurs
   const [domains, setDomains] = useState<any[]>([]); // Liste des domaines pour le secteur sélectionné
   const [selectedSectorId, setSelectedSectorId] = useState<string | null>(null); // Secteur sélectionné

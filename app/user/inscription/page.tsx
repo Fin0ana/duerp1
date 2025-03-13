@@ -5,16 +5,15 @@ import _api from "@/app/_endpoints";
 import SignupClientPage from "@/components/User/Inscription/ClientPage";
 import axiosGet from "@/app/actions/axiosGet";
 
-type InscriptionPageProps = {
-  searchParams: { token: string };
-};
-const InscriptionPage: React.FC<InscriptionPageProps> = async ({
+async function InscriptionPage({
   searchParams,
-}) => {
+}: {
+  searchParams?: Promise<{ token?: string }>;
+}) {
   let invitation: InvitationGet | undefined;
   let errorMessage: string | undefined;
   try {
-    const token = searchParams?.token;
+    const token = (await searchParams)?.token;
     if (token) {
       invitation = await axiosGet<InvitationGet>(
         _api.invitation.getFromToken(token)
@@ -32,6 +31,6 @@ const InscriptionPage: React.FC<InscriptionPageProps> = async ({
       <SignupClientPage invitation={invitation} errorMessage={errorMessage} />
     </div>
   );
-};
+}
 
 export default InscriptionPage;
