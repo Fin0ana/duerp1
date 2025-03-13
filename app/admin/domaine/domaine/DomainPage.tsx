@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import AdminLayout from '../../../../components/AdminLayout';
 
 interface DomaineProps {
-  domaines: Array<{ domaine: string }>;
-  selectedDomaine: string;
-  onChangeDomaine: (value: string) => void;
+  domaines?: Array<{ domaine: string }>;
+  selectedDomaine?: string;
+  onChangeDomaine?: (value: string) => void;
 }
 
 const Domaine: React.FC<DomaineProps> = ({ domaines, selectedDomaine, onChangeDomaine }) => {
@@ -48,7 +48,7 @@ const Domaine: React.FC<DomaineProps> = ({ domaines, selectedDomaine, onChangeDo
         <select
           id="domaine"
           value={selectedDomaine}
-          onChange={(e) => onChangeDomaine(e.target.value)}
+          onChange={(e) => onChangeDomaine?.(e.target.value)}
           style={{
             width: '100%',
             padding: '10px',

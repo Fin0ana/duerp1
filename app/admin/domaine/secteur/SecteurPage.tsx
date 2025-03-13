@@ -1,9 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import AdminLayout from '../../../../components/AdminLayout';
+import AdminLayout from "../../../../components/AdminLayout";
 import axiosInstance from "../../payment/utils/axios";
 
-type SecteurProps = { secteurs: SecteurOption[]; selectedSecteur: string; onChangeSecteur: (secteur: string) => void; }
+type SecteurProps = {
+  secteurs?: SecteurOption[];
+  selectedSecteur?: string;
+  onChangeSecteur?: (secteur: string) => void;
+};
+
 const Secteur: React.FC<SecteurProps> = () => {
   const [sectors, setSectors] = useState<any[]>([]); // Liste des secteurs
   const [domains, setDomains] = useState<any[]>([]); // Liste des domaines pour le secteur sélectionné
@@ -22,8 +27,8 @@ const Secteur: React.FC<SecteurProps> = () => {
   const getSectors = async () => {
     try {
       const response = await axiosInstance.get("/api/sector?limit=100");
-      const sortedSectors = response.data.data.sort((a: any, b: any) =>
-        a.name.localeCompare(b.name) // Tri alphabétique
+      const sortedSectors = response.data.data.sort(
+        (a: any, b: any) => a.name.localeCompare(b.name) // Tri alphabétique
       );
       setSectors(sortedSectors);
     } catch (error) {
@@ -34,10 +39,15 @@ const Secteur: React.FC<SecteurProps> = () => {
   // Récupération des domaines pour un secteur donné
   const getDomains = async (sectorId: string) => {
     try {
-      const response = await axiosInstance.get(`/api/domain/from-sector/${sectorId}`);
+      const response = await axiosInstance.get(
+        `/api/domain/from-sector/${sectorId}`
+      );
       setDomains(response.data); // Mise à jour des domaines
     } catch (error) {
-      console.error(`Erreur lors de la récupération des domaines pour le secteur ${sectorId} :`, error);
+      console.error(
+        `Erreur lors de la récupération des domaines pour le secteur ${sectorId} :`,
+        error
+      );
     }
   };
 
@@ -52,11 +62,17 @@ const Secteur: React.FC<SecteurProps> = () => {
   const totalPages = Math.ceil(sectors.length / itemsPerPage);
 
   const [subDomains, setSubDomains] = useState<any[]>([]);
-  const [selectedDomainId, setSelectedDomainId] = useState<string | undefined>();
-  const [domainType, setDomainType] = useState<"domain" | "subdomain">("domain");
+  const [selectedDomainId, setSelectedDomainId] = useState<
+    string | undefined
+  >();
+  const [domainType, setDomainType] = useState<"domain" | "subdomain">(
+    "domain"
+  );
 
   const clickDomain = (domainId: string) => async () => {
-    const response = await axiosInstance.get(`/api/sub-domain/from-domain/${domainId}`);
+    const response = await axiosInstance.get(
+      `/api/sub-domain/from-domain/${domainId}`
+    );
     setSelectedDomainId(domainId);
     setSubDomains(response.data);
     setSelectedSubDomainId("");
@@ -64,12 +80,15 @@ const Secteur: React.FC<SecteurProps> = () => {
     setDomainType("subdomain");
   };
 
-  const [selectedSubDomainId, setSelectedSubDomainId] = useState<string | undefined>();
+  const [selectedSubDomainId, setSelectedSubDomainId] = useState<
+    string | undefined
+  >();
   const clickSubDomain = (subDomainId: string) => () => {
     setSelectedSubDomainId(subDomainId);
   };
 
-  const id = domainType === "subdomain" ? selectedSubDomainId : selectedDomainId;
+  const id =
+    domainType === "subdomain" ? selectedSubDomainId : selectedDomainId;
 
   return (
     <AdminLayout>
@@ -83,7 +102,6 @@ const Secteur: React.FC<SecteurProps> = () => {
         }}
       >
         <h1 style={{ marginBottom: "1rem" }}>Liste des Secteurs</h1>
-
         {/* Affichage des secteurs */}
         <ul style={{ padding: 0, marginBottom: "1rem", listStyle: "none" }}>
           {currentSectors.map((sector) => (
@@ -107,7 +125,6 @@ const Secteur: React.FC<SecteurProps> = () => {
             </li>
           ))}
         </ul>
-
         {/* Pagination */}
         <div style={{ marginBottom: "2rem" }}>
           <button
@@ -128,7 +145,9 @@ const Secteur: React.FC<SecteurProps> = () => {
             Page {currentPage} sur {totalPages}
           </span>
           <button
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
             disabled={currentPage === totalPages}
             style={{
               background: "none",
@@ -142,7 +161,6 @@ const Secteur: React.FC<SecteurProps> = () => {
             ▶
           </button>
         </div>
-
         {/* Affichage des domaines pour le secteur sélectionné */}
         {selectedSectorId && (
           <div>
@@ -171,16 +189,28 @@ const Secteur: React.FC<SecteurProps> = () => {
             )}
           </div>
         )}
-
-        <div>{subDomains?.length ? <div>
-          {subDomains.map((subDomain) => (
-            <div onClick={clickSubDomain(subDomain._id)} key={subDomain._id}>{subDomain.name}</div>
-          ))}
-        </div> : <></>}</div>
+        <div>
+          {subDomains?.length ? (
+            <div>
+              {subDomains.map((subDomain) => (
+                <div
+                  onClick={clickSubDomain(subDomain._id)}
+                  key={subDomain._id}
+                >
+                  {subDomain.name}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
         {selectedSubDomainId} <br />
         {selectedDomainId} <br />
         {domainType}
-        <button disabled={!id} onClick={handleClick}>Suivant</button>
+        <button disabled={!id} onClick={handleClick}>
+          Suivant
+        </button>
       </div>
     </AdminLayout>
   );

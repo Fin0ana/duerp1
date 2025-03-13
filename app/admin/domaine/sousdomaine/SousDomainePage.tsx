@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import AdminLayout from '../../../../components/AdminLayout';
 
 interface SousDomaineProps {
-  sousDomaines: string[];
-  selectedSousDomaine: string;
-  onChangeSousDomaine: (value: string) => void;
+  sousDomaines?: string[];
+  selectedSousDomaine?: string;
+  onChangeSousDomaine?: (value: string) => void;
 }
 
 const SousDomaine: React.FC<SousDomaineProps> = ({ sousDomaines, selectedSousDomaine, onChangeSousDomaine }) => {
@@ -45,7 +45,7 @@ const SousDomaine: React.FC<SousDomaineProps> = ({ sousDomaines, selectedSousDom
         <select
           id="sous-domaine"
           value={selectedSousDomaine}
-          onChange={(e) => onChangeSousDomaine(e.target.value)}
+          onChange={(e) => onChangeSousDomaine?.(e.target.value)}
           style={{
             width: '100%',
             padding: '10px',
