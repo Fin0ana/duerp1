@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from "@/components/FooterUser";
 import { motion } from "framer-motion";
-import { FaFacebook, FaWhatsapp, FaLinkedin } from "react-icons/fa"; 
+import { FaFacebook, FaWhatsapp, FaLinkedin } from "react-icons/fa";
 
 const HomePage: React.FC = () => {
   const [selected, setSelected] = useState<number | null>(null);
@@ -32,24 +32,23 @@ const HomePage: React.FC = () => {
     arrows: false,
   };
 
-
-
   const cards = [
     {
       img: "/assets/gif4.gif",
       title: "Quelles sont vos obligations?",
-      text: "En tant qu'employeur, vous devez assurer la sécurité et la santé des travailleurs (Art. L. 4121-1). Le non-respect de cette obligation peut entraîner une amende de 1.500 €, doublée en cas de récidive dans un an (C. Trav., R. 4741-1)."
+      text: "En tant qu'employeur, vous devez assurer la sécurité et la santé des travailleurs (Art. L. 4121-1). Le non-respect de cette obligation peut entraîner une amende de 1.500 €, doublée en cas de récidive dans un an (C. Trav., R. 4741-1).",
     },
     {
       img: "/assets/gif2.gif",
-      title: "Un accompagnement sur-mesure pour répondre à vos besoins spécifiques",
-      text: "Que vous soyez novice en matière de prévention des risques professionnels ou que vous souhaitiez simplement fiabiliser votre démarche, notre site vous offre un accompagnement sur-mesure."
+      title:
+        "Un accompagnement sur-mesure pour répondre à vos besoins spécifiques",
+      text: "Que vous soyez novice en matière de prévention des risques professionnels ou que vous souhaitiez simplement fiabiliser votre démarche, notre site vous offre un accompagnement sur-mesure.",
     },
     {
       img: "/assets/gif3.gif",
       title: "Un gain de temps et d'expertise pour une prévention efficiente",
-      text: "DUERPenligne vous fait gagner du temps et vous aide à vous concentrer sur l'essentiel en automatisant les tâches et en fournissant une expertise personnalisée, assurant une prévention des risques professionnels conforme."
-    }
+      text: "DUERPenligne vous fait gagner du temps et vous aide à vous concentrer sur l'essentiel en automatisant les tâches et en fournissant une expertise personnalisée, assurant une prévention des risques professionnels conforme.",
+    },
   ];
 
   const handleClick = (id: number) => {
@@ -101,134 +100,140 @@ const HomePage: React.FC = () => {
             </div>
           </Slider>
           <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-4">
-      <button className="text-blue-900 font-bold bg-white border border-blue-900 py-2 px-6 text-lg md:text-2xl flex items-center justify-center hover:bg-blue-900 hover:text-white transition-colors duration-300 rounded-full animate-slide-in">
-        Voir les détails
-      </button>
-      <button className="text-blue-900 font-bold bg-white border border-blue-900 py-2 px-6 text-lg md:text-2xl flex items-center justify-center hover:bg-blue-900 hover:text-white transition-colors duration-300 rounded-full animate-slide-in delay">
-        Lancez dès maintenant
-      </button>
-    </div>
+            <button className="text-blue-900 font-bold bg-white border border-blue-900 py-2 px-6 text-lg md:text-2xl flex items-center justify-center hover:bg-blue-900 hover:text-white transition-colors duration-300 rounded-full animate-slide-in">
+              Voir les détails
+            </button>
+            <button className="text-blue-900 font-bold bg-white border border-blue-900 py-2 px-6 text-lg md:text-2xl flex items-center justify-center hover:bg-blue-900 hover:text-white transition-colors duration-300 rounded-full animate-slide-in delay">
+              Lancez dès maintenant
+            </button>
+          </div>
         </div>
 
-        <div className="fixed right-5 top-1/3 space-y-4">
-      {/* WhatsApp */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        onMouseEnter={handleWhatsappHover}
-      >
-        <a
-          href="https://wa.me/11234567890" // Remplacez ce lien par votre propre numéro WhatsApp
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={handleWhatsappClick}
-        >
-          <FaWhatsapp size={40} color="#25D366" />
-        </a>
-      </motion.div>
-
-      {/* Facebook */}
-      {showAllIcons && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-            <FaFacebook size={40} color="#1877F2" />
-          </a>
-        </motion.div>
-      )}
-
-      {/* LinkedIn */}
-      {showAllIcons && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-        >
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin size={40} color="#0077B5" />
-          </a>
-        </motion.div>
-      )}
-    </div>
-
-
-<br /><br />
-<motion.h1
-  className="m-auto text-center font-waterfall text-3xl md:text-6xl text-gradient font-bold my-2 md:my-4"
-  initial={{ opacity: 0, y: 50 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 1, ease: "easeOut" }}
-  viewport={{ once: true }}
->
-  Comment garantir la sécurité au travail efficacement ?
-</motion.h1>
-
-<motion.section
-  className="relative flex flex-col md:flex-row justify-center p-8 mt-28 space-y-8 md:space-y-0 md:space-x-8"
-  initial={{ opacity: 0 }}
-  whileInView={{ opacity: 1 }}
-  transition={{ duration: 2, ease: "easeOut" }}
-  viewport={{ once: false, amount: 0.3 }}
->
-  <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-    <div className="line line1"></div>
-    <div className="line line2"></div>
-    <div className="line line3"></div>
-    <div className="line line4"></div>
-    <div className="line line5 vertical"></div>
-    <div className="line line6 vertical"></div>
-  </div>
-
-  {cards.map((card, index) => (
-    <motion.div
-      key={index}
-      className="bg-white shadow-md rounded-lg p-6 transition-transform duration-300 ease-in-out transform hover:scale-105"
-      style={{
-        maxWidth: "24rem",
-        color: "#0732EF",
-        border: "4px solid white",
-        boxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19)",
-      }}
-      initial={{ opacity: 0, x: -100 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 2, ease: "easeOut" }}
-      viewport={{ once: false, amount: 0.3 }}
+        <div className="fixed right-5 top-1/3 space-y-4 z-50 pointer-events-auto">
+  {/* WhatsApp */}
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 1 }}
+    onMouseEnter={handleWhatsappHover}
+  >
+    <a
+      href="https://wa.me/11234567890"
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={handleWhatsappClick}
     >
-      <Image
-        src={card.img}
-        alt={`Description de l'image ${index + 1}`}
-        width={60}
-        height={40}
-        className="rounded-md m-auto"
-      />
-      <h5 className="text-xl font-bold mb-4 text-center md:text-left">
-        {card.title}
-      </h5>
-      <p className="text-base text-center md:text-left">
-        {card.text}
-      </p>
+      <FaWhatsapp size={40} color="#25D366" className="drop-shadow-lg" />
+    </a>
+  </motion.div>
+
+  {/* Facebook */}
+  {showAllIcons && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 0.2 }}
+    >
+      <a
+        href="https://www.facebook.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaFacebook size={40} color="#1877F2" className="drop-shadow-lg" />
+      </a>
     </motion.div>
-  ))}
-</motion.section>
+  )}
 
-{/* Bouton qui apparaît après l'animation des cartes */}
-<motion.div
-  className="flex justify-center mt-16"
-  initial={{ opacity: 0 }}
-  whileInView={{ opacity: 1 }}
-  transition={{ duration: 2, ease: "easeOut" }}
-  viewport={{ once: true, amount: 0.3 }}
->
-  <button className="text-blue-900 font-bold bg-white border border-blue-900 py-3 px-8 text-lg md:text-2xl hover:bg-blue-900 hover:text-white transition-colors duration-300 rounded-full">
-    Prenez le départ
-  </button>
-</motion.div>
+  {/* LinkedIn */}
+  {showAllIcons && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 0.4 }}
+    >
+      <a
+        href="https://www.linkedin.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaLinkedin size={40} color="#0077B5" className="drop-shadow-lg" />
+      </a>
+    </motion.div>
+  )}
+</div>
 
 
+        <br />
+        <br />
+        <motion.h1
+          className="m-auto text-center font-waterfall text-3xl md:text-6xl text-gradient font-bold my-2 md:my-4"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
+          Comment garantir la sécurité au travail <br /> efficacement ?
+        </motion.h1>
+
+        <motion.section
+          className="relative flex flex-col md:flex-row justify-center p-8 mt-28 space-y-8 md:space-y-0 md:space-x-8"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.3 }}
+        >
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+            <div className="line line1"></div>
+            <div className="line line2"></div>
+            <div className="line line3"></div>
+            <div className="line line4"></div>
+            <div className="line line5 vertical"></div>
+            <div className="line line6 vertical"></div>
+          </div>
+
+          {cards.map((card, index) => (
+            <motion.div
+              key={index}
+              className="bg-white shadow-md rounded-lg p-6 transition-transform duration-300 ease-in-out transform hover:scale-105"
+              style={{
+                maxWidth: "24rem",
+                color: "#0732EF",
+                border: "4px solid white",
+                boxShadow:
+                  "0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19)",
+              }}
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 2, ease: "easeOut" }}
+              viewport={{ once: false, amount: 0.3 }}
+            >
+              <Image
+                src={card.img}
+                alt={`Description de l'image ${index + 1}`}
+                width={60}
+                height={40}
+                className="rounded-md m-auto"
+              />
+              <h5 className="text-xl font-bold mb-4 text-center md:text-left">
+                {card.title}
+              </h5>
+              <p className="text-base text-center md:text-left">{card.text}</p>
+            </motion.div>
+          ))}
+        </motion.section>
+
+        {/* Bouton qui apparaît après l'animation des cartes */}
+        <motion.div
+          className="flex justify-center mt-16"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <button className="text-blue-900 font-bold bg-white border border-blue-900 py-3 px-8 text-lg md:text-2xl hover:bg-blue-900 hover:text-white transition-colors duration-300 rounded-full">
+            Prenez le départ
+          </button>
+        </motion.div>
       </div>
 
       <section className="relative flex flex-col md:flex-row h-auto mt-20 md:mt-36 bg-[#D9E0E8]">
@@ -244,7 +249,7 @@ const HomePage: React.FC = () => {
             moment, depuis n'importe où, sans gaspillage de papier.
           </p>
           <div className="flex justify-center md:justify-start mt-8 md:mt-16">
-          <button className="text-white font-bold bg-blue-900 py-3 px-8 text-lg md:text-2xl hover:bg-blue-700 transition-colors duration-300 rounded-full">
+            <button className="text-white font-bold bg-blue-900 py-3 px-8 text-lg md:text-2xl hover:bg-blue-700 transition-colors duration-300 rounded-full">
               En savoir plus
             </button>
           </div>
