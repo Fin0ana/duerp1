@@ -152,6 +152,22 @@ body {
   }
 }
 
+html, body {
+  overflow-x: hidden; /* Empêche le scroll horizontal */
+}
+
+.line {
+  white-space: nowrap; /* Empêche le contenu de forcer le défilement */
+}
+
+@keyframes moveLine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
 
 
 /* Styles généraux pour l'alignement vertical des icônes */
