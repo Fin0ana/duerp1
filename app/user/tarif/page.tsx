@@ -129,16 +129,18 @@
 
 // export default CompanySearch;
 
+"use client";
 
+import React, { CSSProperties, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import axiosInstance from "@/app/admin/payment/utils/axios";
+import Navbar from "@/components/Navbar";
+import { showErrorToast } from "@/app/utils/toast";
+import _api from "@/app/_endpoints";
+import { useCookie, useLocalStorage } from "react-use";
+import { Skeleton } from "primereact/skeleton";
 
-'use client';
-
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import axiosInstance from '@/app/admin/payment/utils/axios';
-import Navbar from '@/components/Navbar';
-
-const getOneCompanyFromSiren = async (siren) => {
+const getOneCompanyFromSiren = async (siren: string) => {
   try {
     const response = await axiosInstance.get(`/api/companies/siren/${siren}`);
     return response.data;
@@ -149,13 +151,13 @@ const getOneCompanyFromSiren = async (siren) => {
 
 const CompanySearch = () => {
   const router = useRouter();
-  const [siren, setSiren] = useState('');
+  const [siren, setSiren] = useState("");
   const [companyData, setCompanyData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [selectedType, setSelectedType] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
 
-  const companyTypes = ['PME', 'GE', 'Startup', 'ETI'];
+  const companyTypes = ["PME", "GE", "Startup", "ETI"];
 
   const handleSearch = async () => {
     setLoading(true);
@@ -165,12 +167,37 @@ const CompanySearch = () => {
     try {
       const data = await getOneCompanyFromSiren(siren);
       setCompanyData(data);
-      router.push('/admin/payment/form');
+      router.push("/admin/payment/form");
     } catch (err) {
-      setError('Failed to fetch company data. Please check the SIREN number.');
+      setError("Failed to fetch company data. Please check the SIREN number.");
     } finally {
       setLoading(false);
     }
+  };
+
+  // Pricing
+  const [_, setSelectedPricing] = useCookie("pricingChoice");
+  const [pricings, setPricings] = useState<PricingGet[]>([]);
+  const [loadingPricing, setLoadingPricing] = useState(false);
+  const handeGetPricings = async () => {
+    try {
+      if (!pricings.length) setLoadingPricing(true);
+      const response = await axiosInstance.get(_api.pricing.get);
+      setPricings(response.data);
+    } catch (error) {
+      showErrorToast(error);
+    } finally {
+      setLoadingPricing(false);
+    }
+  };
+
+  useEffect(() => {
+    handeGetPricings();
+  }, []);
+
+  const handleSelectPricing = (pricing: PricingGet) => () => {
+    setSelectedType(pricing._id);
+    setSelectedPricing(JSON.stringify(pricing), { expires: 2 });
   };
 
   return (
@@ -180,20 +207,26 @@ const CompanySearch = () => {
         <div style={styles.container}>
           <h2 style={styles.header}>Sélectionnez un type d'entreprise</h2>
           <div style={styles.typesContainer}>
-            {companyTypes.map((type) => (
-              <button
-                key={type}
-                style={styles.typeButton}
-                onClick={() => setSelectedType(type)}
-              >
-                {type}
-              </button>
-            ))}
+            {loadingPricing
+              ? Array.from({ length: 4 }, (_, k) => (
+                  <Skeleton key={`kk-${k}`} width="100%" height="68px" />
+                ))
+              : pricings.map((pricing) => (
+                  <button
+                    key={pricing._id}
+                    style={styles.typeButton}
+                    onClick={handleSelectPricing(pricing)}
+                  >
+                    {pricing.name}
+                  </button>
+                ))}
           </div>
 
           {selectedType && (
             <div style={styles.searchContainer}>
-              <h3 style={styles.subHeader}>Rechercher une entreprise par SIREN</h3>
+              <h3 style={styles.subHeader}>
+                Rechercher une entreprise par SIREN
+              </h3>
               <div style={styles.inputContainer}>
                 <input
                   type="text"
@@ -207,7 +240,7 @@ const CompanySearch = () => {
                   disabled={loading || !siren}
                   style={styles.button}
                 >
-                  {loading ? 'Chargement...' : 'Rechercher'}
+                  {loading ? "Chargement..." : "Rechercher"}
                 </button>
               </div>
               {error && <p style={styles.error}>{error}</p>}
@@ -219,78 +252,78 @@ const CompanySearch = () => {
   );
 };
 
-const styles = {
+const styles: Record<string, CSSProperties> = {
   pageContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#f0f0f0',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    backgroundColor: "#f0f0f0",
   },
   container: {
-    maxWidth: '600px',
-    padding: '20px',
-    textAlign: 'center',
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+    maxWidth: "600px",
+    padding: "20px",
+    textAlign: "center",
+    backgroundColor: "#fff",
+    borderRadius: "10px",
+    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
   },
   header: {
-    fontSize: '24px',
-    marginBottom: '15px',
-    textAlign: 'center',
+    fontSize: "24px",
+    marginBottom: "15px",
+    textAlign: "center",
   },
   typesContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '10px',
-    marginBottom: '20px',
+    display: "flex",
+    justifyContent: "center",
+    gap: "10px",
+    marginBottom: "20px",
   },
   typeButton: {
-    padding: '10px 15px',
-    borderRadius: '5px',
-    backgroundColor: '#0070f3',
-    color: '#fff',
-    border: 'none',
-    cursor: 'pointer',
+    padding: "10px 15px",
+    borderRadius: "5px",
+    backgroundColor: "#0070f3",
+    color: "#fff",
+    border: "none",
+    cursor: "pointer",
   },
   searchContainer: {
-    marginTop: '20px',
-    padding: '20px',
-    borderRadius: '8px',
-    backgroundColor: '#f5f5f5',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    marginTop: "20px",
+    padding: "20px",
+    borderRadius: "8px",
+    backgroundColor: "#f5f5f5",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   },
   subHeader: {
-    fontSize: '20px',
-    marginBottom: '15px',
-    textAlign: 'center',
+    fontSize: "20px",
+    marginBottom: "15px",
+    textAlign: "center",
   },
   inputContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '10px',
+    display: "flex",
+    justifyContent: "center",
+    gap: "10px",
   },
   input: {
-    padding: '10px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    fontSize: '16px',
+    padding: "10px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    fontSize: "16px",
   },
   button: {
-    padding: '10px 20px',
-    borderRadius: '5px',
-    backgroundColor: '#0070f3',
-    color: '#fff',
-    border: 'none',
-    fontSize: '16px',
-    cursor: 'pointer',
+    padding: "10px 20px",
+    borderRadius: "5px",
+    backgroundColor: "#0070f3",
+    color: "#fff",
+    border: "none",
+    fontSize: "16px",
+    cursor: "pointer",
   },
   error: {
-    color: 'red',
-    marginTop: '10px',
-    fontSize: '14px',
-    textAlign: 'center',
+    color: "red",
+    marginTop: "10px",
+    fontSize: "14px",
+    textAlign: "center",
   },
 };
 
