@@ -1,19 +1,10 @@
 'use client';
 import React, { useState } from 'react';
-import Secteur from '../secteur/page';
-import Domaine from '../domaine/page';
-import SousDomaine from '../sousdomaine/page';
+import Secteur from '../secteur/SecteurPage';
+import Domaine from '../domaine/DomainPage';
+import SousDomaine from '../sousdomaine/SousDomainePage';
 import AdminLayout from '../../../../components/AdminLayout';
 
-interface SousDomaineOption {
-  domaine: string;
-  sousDomaines: string[];
-}
-
-interface SecteurOption {
-  secteur: string;
-  domaines: SousDomaineOption[];
-}
 
 const secteurOptions: SecteurOption[] = [
   {

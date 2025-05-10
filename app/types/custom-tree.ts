@@ -23,7 +23,10 @@ export type BodyTemplateProps = {
   type: NodeTypes;
   severity?: number;
   likelihood?: number;
-  rowSpan?: number
+  rowSpan?: number;
+  percent?: number;
+  status?: "auto" | "manual";
+  checked: boolean;
 };
 
 export type CheckedFormServer = {

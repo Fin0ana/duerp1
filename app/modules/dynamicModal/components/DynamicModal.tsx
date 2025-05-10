@@ -54,7 +54,7 @@ const DynamicModal = forwardRef<DynamicModalMethods, DynamicModalProp>(
     const promiseRef = useRef<{
       resolve: (...args: any[]) => any;
       reject: (...args: any[]) => any;
-    }>();
+    }>(null);
 
     const handleConfirm = async (value: FormResult) => {
       promiseRef.current?.resolve(value);

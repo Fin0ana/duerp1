@@ -2,9 +2,7 @@ import { copyKeys, filterWithinDescendant } from "../../../utils/global";
 import { KeyString } from "../../../utils/types";
 import { InputText } from "primereact/inputtext";
 import { TreeSelect, TreeSelectChangeEvent } from "primereact/treeselect";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { SelectValues } from "../../types";
-import { IconField } from "primereact/iconfield";
+import { useMemo, useRef, useState } from "react";
 import { InputIcon } from "primereact/inputicon";
 
 type TreeSelectComponentProps = {
@@ -66,7 +64,7 @@ function TreeSelectComponent({
       emptyMessage="Pas d'options"
       panelHeaderTemplate={
         <div className="px-4 mt-2">
-          <IconField iconPosition="right" className=" w-full">
+          <div className="w-full p-icon-field p-icon-field-right">
             <InputIcon className="pi pi-search"></InputIcon>
             <InputText
               value={search}
@@ -76,7 +74,7 @@ function TreeSelectComponent({
               size="small"
               ref={filterRef}
             />
-          </IconField>
+          </div>
           {/* {JSON.stringify(treatedCategories, null, 2)} */}
         </div>
       }

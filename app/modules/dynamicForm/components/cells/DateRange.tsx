@@ -56,7 +56,7 @@ function DateRange({
   };
 
   // False focus
-  const calendarRef = useRef<any>();
+  const calendarRef = useRef<Calendar>(null);
   const handleFalseFocus = async () => {
     // await asyncTimeout(500);
     // calendarRef.current?.focus();

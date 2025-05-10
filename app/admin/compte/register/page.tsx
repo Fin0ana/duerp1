@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import AdminLayout from '@/components/AdminLayout';
+import { dynamicErrorAxios } from '@/app/modules/utils/global';
 
 interface FormData {
   email: string;
@@ -39,10 +40,10 @@ const RegisterForm: React.FC = () => {
     setMessage(null);
     
     try {
-      const response = await axios.post("https://back-duerp.vercel.app/api/client/register", formData);
+      await axios.post("https://back-duerp.vercel.app/api/client/register", formData);
       setMessage('Registration successful!');
     } catch (error) {
-      setError('Error registering. Please try again.');
+      setError(dynamicErrorAxios(error));
     } finally {
       setLoading(false);
     }

@@ -1,8 +1,6 @@
 "use client";
 import React, {
   ChangeEvent,
-  Fragment,
-  MouseEvent,
   Suspense,
   forwardRef,
   useCallback,
@@ -17,21 +15,14 @@ import {
   DataTable,
   DataTableFilterMeta,
   DataTableSelectionMultipleChangeEvent,
-  DataTableSelectionSingleChangeEvent,
   DataTableStateEvent,
 } from "primereact/datatable";
-import {
-  Column,
-  ColumnFilterApplyClickEvent,
-  ColumnFilterElementTemplateOptions,
-} from "primereact/column";
-import { IconField } from "primereact/iconfield";
+import { Column, ColumnFilterElementTemplateOptions } from "primereact/column";
 import { InputIcon } from "primereact/inputicon";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import {
   asyncTimeout,
-  dynamicError,
   isArray,
   debounce,
   compareTwoStrings,
@@ -52,19 +43,14 @@ import type {
 import { KeyString } from "../../utils/types";
 import {
   useClickAway,
-  useDebounce,
-  useEffectOnce,
   useLocalStorage,
-  useThrottleFn,
 } from "react-use";
-import { showToast } from "../../utils/global";
 import {
   Presorter,
   useTreatFilterRequest,
   useTreatSortRequest,
 } from "../composable/useTreatRequest";
 import { InputTextarea } from "primereact/inputtextarea";
-import { FilterMatchMode } from "primereact/api";
 import DynamicFormCore from "../../dynamicForm/components/bases/DynamicFormCore";
 import { TDynamicForm } from "../../dynamicForm/types";
 import { ColumnGroup } from "primereact/columngroup";
@@ -152,13 +138,6 @@ const _AdminDataTable = forwardRef<
         if (queryObj.search) setSearch(queryObj.search);
         setLoading(false);
       } catch (error) {
-        showToast({
-          closable: false,
-          life: 3000,
-          severity: "error",
-          summary: "Erreur",
-          detail: dynamicError(error),
-        });
         console.error(error);
         setLoading(false);
       }
@@ -545,10 +524,7 @@ const _AdminDataTable = forwardRef<
       <div>
         <div className="flex justify-content-between align-items-center">
           <div className={`my-2 w-full ${hasSearch ? "" : "hidden"}`}>
-            <IconField
-              className="relative w-full lg:w-[25rem]"
-              iconPosition="left"
-            >
+            <div className="relative w-full lg:w-[25rem] p-icon-field p-icon-field-left">
               <InputIcon className="pi pi-search"> </InputIcon>
               <InputText
                 value={search}
@@ -567,7 +543,7 @@ const _AdminDataTable = forwardRef<
               ) : (
                 <></>
               )}
-            </IconField>
+            </div>
           </div>
           <div
             className={`flex gap-2 ${hasSearch || selection ? "" : "hidden"}`}

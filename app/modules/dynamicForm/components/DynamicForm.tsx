@@ -28,7 +28,6 @@ import {
 import { KeyString } from "../../utils/types";
 import { useValidation } from "../composables/validation";
 import DynamicField from "./bases/DynamicField";
-import IconMingCute from "@/app/components/common/icons/IconMingCute";
 import { groupBy } from "@/app/utils/objectManip";
 import { Fieldset } from "primereact/fieldset";
 
@@ -94,9 +93,9 @@ const _DynamicForm = forwardRef<DynamicFormMethods, DynamicFormProps>(
     };
 
     /**
-     * 
+     *
      * @param options no callback signifies that it only validate the form and return the result if valid
-     * @returns 
+     * @returns
      */
     async function submit(
       options?: DynamicFormSubmitOptions
@@ -143,7 +142,9 @@ const _DynamicForm = forwardRef<DynamicFormMethods, DynamicFormProps>(
                   <div
                     key={item.id}
                     className={`flex flex-col ${containerClass(item)}`}
-                    ref={(el) => (containerRef.current[item.id] = el)}
+                    ref={(el) => {
+                      containerRef.current[item.id] = el;
+                    }}
                     tabIndex={isQuestionMode ? 0 : undefined}
                   >
                     <DynamicField item={item} id={id} />
@@ -156,7 +157,9 @@ const _DynamicForm = forwardRef<DynamicFormMethods, DynamicFormProps>(
                       <div
                         key={item.id}
                         className={`flex flex-col ${containerClass(item)}`}
-                        ref={(el) => (containerRef.current[item.id] = el)}
+                        ref={(el) => {
+                          containerRef.current[item.id] = el;
+                        }}
                         tabIndex={isQuestionMode ? 0 : undefined}
                       >
                         <DynamicField item={item} id={id} />
@@ -176,7 +179,7 @@ const _DynamicForm = forwardRef<DynamicFormMethods, DynamicFormProps>(
                 "border border-green-600 cursor-pointer hover:bg-green-50"
               }
             >
-              <IconMingCute className="mgc_plus_fill" />
+              <i className="pi pi-plus" />
               <span>Nouveau champ</span>
             </div>
           )}
@@ -303,5 +306,3 @@ const DynamicForm = forwardRef<DynamicFormMethods, DynamicFormProps>(
   }
 );
 export default DynamicForm;
-
-

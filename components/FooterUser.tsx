@@ -3,9 +3,10 @@ import Link from 'next/link';
 import { FaFacebookF } from 'react-icons/fa';
 import { AiOutlineTwitter, AiFillYoutube } from 'react-icons/ai';
 import { BiLogoPinterestAlt } from 'react-icons/bi';
+import { ReactElement } from 'react';
 
 interface Icon {
-  icon: JSX.Element;
+  icon: ReactElement;
   href: string;
   label: string;
 }

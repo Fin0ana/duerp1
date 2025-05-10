@@ -1,10 +1,9 @@
 "use client";
 
 import DynamicForm from "@/app/modules/dynamicForm/components/DynamicForm";
-import { FormResult, TDynamicForm } from "@/app/modules/dynamicForm/types.d";
+import { FormResult, TDynamicForm } from "@/app/modules/dynamicForm/types";
 import { useMemo, useState } from "react";
-import OtherPostsTemplate from "./OtherPostsTemplate";
-import axiosInstance from "@/app/utils/axios";
+import axiosInstance from "@/app/admin/payment/utils/axios";
 import { _clientApi } from "@/app/_endpoints";
 import { dynamicError } from "@/app/modules/utils/global";
 import { useRouter } from "next/navigation";
@@ -109,4 +108,3 @@ function SuggestedPosts({ domain, company }: SuggestedPostsProps) {
 }
 
 export default SuggestedPosts;
-

@@ -3,12 +3,13 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
-import CheckoutForm from "./checkout/page";
+import CheckoutForm from "./checkout/CheckoutForm";
 import AdminLayout from '../../../components/AdminLayout';
+import { ReactElement } from "react";
 
 const stripePromise = loadStripe("pk_test_51JHvJfEh07vZHaVTCODAHx6mmLSxWexT2UY5TfTfA1MsE3tIY5MzqWdqTgwhm4sW7hOrIxfnD0W2wWCkzMGIoU7D007BlxmYxF");
 
-function CheckoutPage(): JSX.Element {
+function CheckoutPage() {
   const router = useRouter();
 
   return (

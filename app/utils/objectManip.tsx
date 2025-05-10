@@ -217,7 +217,7 @@ export function removeAOODuplicate<T>(arr: T[], compareKey: keyof T) {
  * @param targetKey key of the replacer index
  * @param targetValue value of the replacer index
  * @param newElement new element to replace
- * @returns 
+ * @returns
  */
 export function replaceElementInRecursiveArray<T>(
   array: TreeNode[],
@@ -229,6 +229,13 @@ export function replaceElementInRecursiveArray<T>(
   const replaceRecursive = (arr: TreeNode[]): TreeNode[] => {
     return arr.map((item, id) => {
       // If the item has the target key and matches the value, replace it with newElement
+      if (isArray(targetValue)) {
+        if (targetValue.includes((item as any)[targetKey])) {
+          return typeof newElement === "function"
+            ? { ...newElement(item, id) }
+            : { ...newElement };
+        }
+      }
       if ((item as any)[targetKey] === targetValue) {
         return typeof newElement === "function"
           ? { ...newElement(item, id) }
@@ -250,5 +257,35 @@ export function replaceElementInRecursiveArray<T>(
   return replaceRecursive(array);
 }
 
+export function deepEqual2(obj1: any, obj2: any): boolean {
+  if (obj1 === obj2) return true;
+  if (
+    typeof obj1 !== "object" ||
+    typeof obj2 !== "object" ||
+    obj1 === null ||
+    obj2 === null
+  ) {
+    return false;
+  }
 
+  const keys1 = Object.keys(obj1).sort();
+  const keys2 = Object.keys(obj2).sort();
 
+  if (keys1.length !== keys2.length) return false;
+  if (!keys1.every((key, i) => key === keys2[i])) return false;
+
+  return keys1.every((key) => deepEqual2(obj1[key], obj2[key]));
+}
+
+export function compareArrays(arr1: any[], arr2: any[]): boolean {
+  if (arr1.length !== arr2.length) return false;
+
+  const sortedArr1 = [...arr1].sort((a, b) =>
+    JSON.stringify(a).localeCompare(JSON.stringify(b))
+  );
+  const sortedArr2 = [...arr2].sort((a, b) =>
+    JSON.stringify(a).localeCompare(JSON.stringify(b))
+  );
+
+  return sortedArr1.every((item, index) => deepEqual2(item, sortedArr2[index]));
+}

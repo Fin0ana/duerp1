@@ -11,6 +11,10 @@ import {
 import axiosInstance from "../utils/axios";
 import { StripeCardNumberElementOptions, StripeError } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
+import { useCookie } from "react-use";
+import Link from "next/link";
+import { classNames } from "primereact/utils";
+import { showErrorToast } from "@/app/utils/toast";
 
 interface BillingDetails {
   name: string;
@@ -28,16 +32,15 @@ export default function CheckoutForm() {
     name: "",
   });
 
-  const [_value, _, deleteCookie] = ["tpe", "nul", () => {}];
+  const [_value, _, deleteCookie] = useCookie("pricingChoice");
 
-  const { amount, forfait } = useMemo(() => {
-    const defaultValue = { amount: 200000, forfait: "PME" };
+  const selectedPricing = useMemo<PricingGet | undefined>(() => {
     try {
-      if (!_value) return defaultValue;
+      if (!_value) return;
       const __value = JSON.parse(_value);
-      return { amount: parseInt(__value.price) * 100, forfait: __value.type };
+      return __value;
     } catch (error) {
-      return defaultValue;
+      return;
     }
   }, [_value]);
 
@@ -46,12 +49,17 @@ export default function CheckoutForm() {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const paymentIntent = await handleCreatePaymentIntent();
-    if (!paymentIntent) return;
-    await handleEnableCompanyCreator(paymentIntent.id);
-    deleteCookie();
-    router.push("/admin/payment/company");
+    try {
+      event.preventDefault();
+      if (!selectedPricing) return;
+      const paymentIntent = await handleCreatePaymentIntent();
+      if (!paymentIntent) return;
+      await handleEnableCompanyCreator(paymentIntent.id);
+      deleteCookie();
+      router.push("/admin/payment/company");
+    } catch (error) {
+      showErrorToast(error)
+    }
   };
 
   const baseUrl = " https://back-duerp.vercel.app";
@@ -61,13 +69,13 @@ export default function CheckoutForm() {
       setProcessing(true);
 
       const res = await axiosInstance.post("/api/client/new-payment-intent", {
-        amount,
+        _id: selectedPricing?._id,
       });
       const { clientSecret } = await res.data;
 
       if (!stripe || !elements) return;
 
-      const cardNumberElement = elements.getElement(CardNumberElement);
+      const cardNumberElement = elements.getElement(CardNumberElement)!;
       const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: cardNumberElement,
@@ -90,26 +98,37 @@ export default function CheckoutForm() {
       setProcessing(false);
       return paymentIntent;
     } catch (error) {
-      setError(error);
+      setError(error as StripeError);
       setProcessing(false);
       throw error;
     }
   };
 
   const handleEnableCompanyCreator = async (stripeIntentId: string) => {
-    axiosInstance.get(`/api/client/enable-user/${stripeIntentId}`);
+    await axiosInstance.get(`/api/client/enable-user/${stripeIntentId}`);
   };
 
   return (
     <>
-      <p className="flex justify-center">
-        <span>
-          Paiement pour le forfait <span className="font-bold">{forfait}</span>{" "}
-          pour :{" "}
-        </span>
-        &nbsp;
-        <span className="font-bold">{(amount * 0.01)}</span>
-      </p>
+      {selectedPricing ? (
+        <p className="flex justify-center">
+          <span>
+            Paiement pour le forfait <span className="font-bold">{selectedPricing?.type || "Non choisi"}</span>{" "}
+            pour :{" "}
+          </span>
+          &nbsp;
+          <span className="font-bold">{((selectedPricing?.price || 0) * 0.01)}</span>
+        </p>
+        ) : (
+        <div className="py-3 flex items-center justify-center">
+          <Link
+            href={"/user/tarif"}
+            className="text-red-500 bg-red-50 p-3 rounded-sm"
+          >
+            Veuillez choisir un tarif pour votre société. <span className="underline">Choisir</span>
+          </Link>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <fieldset>
           <div className="mb-3">
@@ -173,11 +192,14 @@ export default function CheckoutForm() {
         {error && <ErrorMessage>{error.message}</ErrorMessage>}
         <fieldset>
           <button
-            className={`block w-full max-w-xs mx-auto ${
+            disabled={!selectedPricing}
+            className={classNames(
+              "block w-full max-w-xs mx-auto disabled:bg-gray-200 disabled:text-gray-600",
+              "text-white rounded-lg px-3 py-3 font-semibold focus:outline-none my-3",
               processing
                 ? "bg-indigo-300 hover:bg-indigo-400"
                 : "bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700"
-            } text-white rounded-lg px-3 py-3 font-semibold focus:outline-none my-3`}
+            )}
           >
             Payer maintenant
           </button>

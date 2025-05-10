@@ -4,7 +4,7 @@ import {
   DropdownFilterEvent,
 } from "primereact/dropdown";
 import { Skeleton } from "primereact/skeleton";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { useIntersection, useDebounce } from "react-use";
 import { SelectValues } from "../../types";
 import { LaravelRequest, TPaginatedData } from "../../../datatable/types.d";
@@ -94,7 +94,10 @@ function LazyPaginatedSelect({
     target.current = el;
   };
 
-  const intersect = useIntersection(target, {});
+  const intersect = useIntersection(
+    target as unknown as RefObject<HTMLElement>,
+    {}
+  );
 
   const onLazyLoad = async () => {
     if (page + 1 >= totalPage) {
@@ -160,5 +163,3 @@ function LazyPaginatedSelect({
 }
 
 export default LazyPaginatedSelect;
-
-

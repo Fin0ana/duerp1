@@ -43,5 +43,3 @@ export function FalseAdd({ onOk }: { onOk: (newItem: any) => void }) {
     </form>
   );
 }
-
-

@@ -1,0 +1,17 @@
+.p-password {
+    display: block;
+    .p-icon-field .p-input-icon {
+        margin-top: 0;
+        translate: 0 -50%;
+    }
+}
+
+.p-password-input {
+    width: 100%;
+}
+
+label.label {
+  margin-bottom: 0.25rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+}
